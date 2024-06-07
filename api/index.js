@@ -24,8 +24,9 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-  origin:"https://real-estate-project-frontend-clf3vp40y-devstarks-projects.vercel.app",
-  credentials:true,
+  origin: 'https://real-estate-project-frontend-fadug0v69-devstarks-projects.vercel.app',
+  methods: 'GET,POST,PUT,DELETE',
+  credentials: true
 }));
 
 app.use(cookieParser());
