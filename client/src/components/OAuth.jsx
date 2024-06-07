@@ -25,10 +25,7 @@ export default function OAuth() {
         }),
       });
 
-      console.log(res);
       const data = await res.json()
-      console.log(JSON.stringify(data))
-
 
       dispatch(signInSuccess(data));
       navigate('/');

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore from 'swiper';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css/bundle';
 import {
@@ -15,6 +15,7 @@ import {
   FaShare,
 } from 'react-icons/fa';
 import Contact from '../components/Contact';
+import { clearError } from '../redux/user/userSlice';
 
 // https://sabe.io/blog/javascript-format-numbers-commas#:~:text=The%20best%20way%20to%20format,format%20the%20number%20with%20commas.
 
@@ -26,6 +27,7 @@ export default function Listing() {
   const [copied, setCopied] = useState(false);
   const [contact, setContact] = useState(false);
   const params = useParams();
+  const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
@@ -49,6 +51,11 @@ export default function Listing() {
     };
     fetchListing();
   }, [params.listingId]);
+  
+  useEffect(() => {
+    dispatch(clearError());
+  }, [dispatch]);
+  
 
   return (
     <main>

@@ -5,13 +5,15 @@ import { Navigation } from 'swiper/modules';
 import SwiperCore from 'swiper';
 import 'swiper/css/bundle';
 import ListingItem from '../components/ListingItem';
+import { useDispatch } from 'react-redux';
+import { clearError } from '../redux/user/userSlice';
 
 export default function Home() {
   const [offerListings, setOfferListings] = useState([]);
   const [saleListings, setSaleListings] = useState([]);
   const [rentListings, setRentListings] = useState([]);
   SwiperCore.use([Navigation]);
-  console.log(offerListings);
+  const dispatch = useDispatch();
   useEffect(() => {
     const fetchOfferListings = async () => {
       try {
@@ -45,6 +47,11 @@ export default function Home() {
     };
     fetchOfferListings();
   }, []);
+  
+  useEffect(() => {
+    dispatch(clearError());
+  }, [dispatch]);
+  
   return (
     <div>
       {/* top */}

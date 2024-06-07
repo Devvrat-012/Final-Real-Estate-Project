@@ -15,6 +15,7 @@ import {
   deleteUserStart,
   deleteUserSuccess,
   signOutUserStart,
+  clearError,
 } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -42,6 +43,10 @@ export default function Profile() {
     }
   }, [file]);
 
+  useEffect(() => {
+    dispatch(clearError());
+  }, [dispatch]);
+  
   const handleFileUpload = (file) => {
     const storage = getStorage(app);
     const fileName = new Date().getTime() + file.name;
