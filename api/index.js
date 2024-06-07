@@ -21,9 +21,12 @@ mongoose
 
 const app = express();
 
-app.use(cors())
-
 app.use(express.json());
+
+app.use(cors({
+  origin:"https://real-estate-project-frontend-clf3vp40y-devstarks-projects.vercel.app",
+  credentials:true,
+}));
 
 app.use(cookieParser());
 const PORT=3000
