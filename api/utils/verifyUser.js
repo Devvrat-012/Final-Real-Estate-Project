@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
-export const verifytToken = (req, res, next) => {
+export const verifyToken = (req, res, next) => {
   const cookieString = req.headers.cookie;
   if (!cookieString) {
     return next(errorHandler(401, "Unauthorized!"));
