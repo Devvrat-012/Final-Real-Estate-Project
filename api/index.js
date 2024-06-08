@@ -24,7 +24,7 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-  origin: 'https://real-estate-project-frontend-fadug0v69-devstarks-projects.vercel.app',
+  origin: 'https://real-estate-project-frontend.vercel.app',
   methods: 'GET,POST,PUT,DELETE',
   credentials: true
 }));
