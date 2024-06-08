@@ -44,7 +44,11 @@ import axios from 'axios';
         dispatch(signInSuccess(data));
         navigate('/');
       } catch (error) {
-        dispatch(signInFailure(error.message));
+        if (error.message === "Request failed with status code 404") {
+          dispatch(signInFailure("User not found!"));
+        } else {
+          dispatch(signInFailure(error.message));
+        }
       }
     };
   return (

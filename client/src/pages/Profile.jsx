@@ -84,6 +84,7 @@ export default function Profile() {
         headers: {
           'Content-Type': 'application/json',
         },
+        withCredentials: true
       });
       const data = res.data;
       if (data.success === false) {
