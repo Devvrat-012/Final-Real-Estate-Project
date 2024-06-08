@@ -1,15 +1,23 @@
-import jwt from 'jsonwebtoken';
-import { errorHandler } from './error.js';
+import { errorHandller } from "./error.js";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
-export const verifyToken = (req, res, next) => {
-  const token = req.cookies.access_token;
+export const verifytToken = (req, res, next) => {
+  const cookieString = req.headers.cookie;
+  if (!cookieString) {
+    return next(errorHandller(401, "Unauthorized!"));
+  }
+  const accessToken = cookieString
+    .split("; ")
+    .find((row) => row.startsWith("access_token="))
+    ?.split("=")[1];
+  if (!accessToken) return next(errorHandller(401, "Unauthorized!"));
 
-  if (!token) return next(errorHandler(401, 'Unauthorized'));
+  jwt.verify(accessToken, process.env.JWT_SECRET, (err, user) => {
+    if (err) return next(errorHandller(403, "Forbidden!"));
+    req.user = user.id;
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    if (err) return next(errorHandler(403, 'Forbidden'));
-
-    req.user = user;
     next();
   });
 };
