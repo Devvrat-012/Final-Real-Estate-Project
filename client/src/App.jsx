@@ -11,6 +11,9 @@ import UpdateListing from './pages/UpdateListing';
 import Listing from './pages/Listing';
 import Search from './pages/Search';
 
+axios.defaults.withCredentials = true
+axios.defaults.baseURL = "https://final-real-estate-project.onrender.com/api/";
+
 export default function App() {
   return (
     <BrowserRouter>

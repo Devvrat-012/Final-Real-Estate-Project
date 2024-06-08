@@ -9,6 +9,7 @@ import { app } from '../firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { clearError } from '../redux/user/userSlice';
+import axios from 'axios';
 
 export default function CreateListing() {
   const { currentUser } = useSelector((state) => state.user);
@@ -138,17 +139,16 @@ export default function CreateListing() {
         return setError('Discount price must be lower than regular price');
       setLoading(true);
       setError(false);
-      const res = await fetch('/api/listing/create', {
-        method: 'POST',
+      const response = await axios.post('/api/listing/create', {
+        ...formData,
+        userRef: currentUser._id,
+      }, {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          ...formData,
-          userRef: currentUser._id,
-        }),
       });
-      const data = await res.json();
+    
+      const data = response.data;
       setLoading(false);
       if (data.success === false) {
         setError(data.message);

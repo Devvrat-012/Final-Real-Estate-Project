@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -11,8 +12,8 @@ export default function Contact({ listing }) {
   useEffect(() => {
     const fetchLandlord = async () => {
       try {
-        const res = await fetch(`/api/user/${listing.userRef}`);
-        const data = await res.json();
+        const res = await axios.get(`/api/user/${listing.userRef}`);
+        const data = res.data;
         setLandlord(data);
       } catch (error) {
         console.log(error);

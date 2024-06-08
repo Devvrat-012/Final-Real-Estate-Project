@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import OAuth from '../components/OAuth';
 import { clearError } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
+import axios from 'axios';
 
 export default function SignUp() {
   const [formData, setFormData] = useState({});
@@ -25,14 +26,13 @@ export default function SignUp() {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await fetch('/api/auth/signup', {
-        method: 'POST',
+      const res = await axios.post("/api/auth/signup", formData, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json", 
         },
-        body: JSON.stringify(formData),
+        withCredentials: true,
       });
-      const data = await res.json();
+      const data = res.data;
       if (data.success === false) {
         setLoading(false);
         setError(data.message);
